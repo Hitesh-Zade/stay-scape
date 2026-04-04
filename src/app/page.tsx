@@ -1,7 +1,7 @@
 import { Property } from "@/types";
-import SearchBar from "@/components/SearchBar";
-import CategoryFilter from "@/components/CategoryFilters";
-import PropertyCard from "@/components/PropertyCard";
+import SearchBar from "@/components/ui/SearchBar";
+import CategoryFilter from "@/components/ui/CategoryFilters";
+import PropertyCard from "@/components/properties/PropertyCard";
 
 // Mock data - In a real app, this would come from an API
 const mockProperties: Property[] = [
@@ -183,7 +183,7 @@ export default function Home() {
           {mockProperties.map((property, index) => (
             <div key={property.id}  className="animate-scale-in"
               style={{ animationDelay: `${index * 0.1}s` }}>
-               <PropertyCard />
+               <PropertyCard property={property} />
             </div>
           ))}
         </div>

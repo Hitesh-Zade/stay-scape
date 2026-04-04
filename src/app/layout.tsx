@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import "./layout.css";
-import Navbar from "@/components/Navbar";
-
+import Navbar from "@/components/layout/Navbar";
+import Providers from "./providers";
 
 export const metadata: Metadata = {
   title: "Stay Scape",
@@ -15,13 +15,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="en"
-      className={`h-full antialiased`}
-    >
+    <html lang="en" className={`h-full antialiased`}>
       <body className="min-h-full flex flex-col">
-         <Navbar />
-        {children}</body>
+        <Providers>
+          <Navbar />
+          {children}
+        </Providers>
+      </body>
     </html>
   );
 }

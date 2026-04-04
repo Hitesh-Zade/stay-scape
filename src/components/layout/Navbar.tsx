@@ -2,9 +2,12 @@
 import Link from 'next/link'
 import { Search, Menu, User, Heart, MapPin } from 'lucide-react'
 import { useState } from 'react'
+import { signIn, signOut, useSession } from "next-auth/react";
 
 const Navbar = () => {
       const [isMenuOpen, setIsMenuOpen] = useState(false)
+        const { data: session } = useSession();
+
   return (
         <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-lg border-b border-gray-200">
       <nav className="container-custom py-4">
@@ -39,6 +42,9 @@ const Navbar = () => {
           </div>
            {/* Right Menu */}
           <div className="flex items-center space-x-4">
+             <button onClick={() => signIn("google")}>
+      Login with Google
+    </button>
             <Link 
               href="/properties/new" 
               className="hidden md:block text-sm font-semibold text-gray-900 hover:text-primary-500 transition-colors duration-300 px-4 py-2 rounded-full hover:bg-gray-50"
