@@ -2,11 +2,12 @@
 import Link from 'next/link'
 import { Search, Menu, User, Heart, MapPin } from 'lucide-react'
 import { useState } from 'react'
-import { signIn, signOut, useSession } from "next-auth/react";
+import {  signOut, useSession } from "next-auth/react";
 
 const Navbar = () => {
       const [isMenuOpen, setIsMenuOpen] = useState(false)
         const { data: session } = useSession();
+        console.log(session)
 
   return (
         <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-lg border-b border-gray-200">
@@ -42,9 +43,7 @@ const Navbar = () => {
           </div>
            {/* Right Menu */}
           <div className="flex items-center space-x-4">
-             <button onClick={() => signIn("google")}>
-      Login with Google
-    </button>
+            {session ? <span>{session.user?.name}</span> : ""}
             <Link 
               href="/properties/new" 
               className="hidden md:block text-sm font-semibold text-gray-900 hover:text-primary-500 transition-colors duration-300 px-4 py-2 rounded-full hover:bg-gray-50"
@@ -61,9 +60,10 @@ const Navbar = () => {
               className="flex items-center space-x-2 border-2 border-gray-200 rounded-full px-4 py-2 hover:shadow-md transition-all duration-300"
             >
               <Menu className="w-5 h-5 text-gray-600" />
-              <div className="bg-gray-700 rounded-full p-1.5">
+              {session ? <img src={session.user?.image || ""} className="w-6 h-6 rounded-full" /> :  <div className="bg-gray-700 rounded-full p-1.5">
                 <User className="w-4 h-4 text-white" />
-              </div>
+              </div>}
+             
             </button>
           </div>
       </div>
@@ -105,6 +105,12 @@ const Navbar = () => {
             >
               Profile
             </Link>
+                <div 
+                 onClick={() => signOut()}
+              className="block px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 transition-colors duration-200"
+            >
+              Sign Out
+            </div>
           </div>
         )}
     </nav>

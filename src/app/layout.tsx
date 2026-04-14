@@ -3,6 +3,7 @@ import "./globals.css";
 import "./layout.css";
 import Navbar from "@/components/layout/Navbar";
 import Providers from "./providers";
+import { Toaster } from "react-hot-toast";
 
 export const metadata: Metadata = {
   title: "Stay Scape",
@@ -19,7 +20,9 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col">
         <Providers>
           <Navbar />
+          
           {children}
+          <Toaster position="bottom-right" />
         </Providers>
       </body>
     </html>
