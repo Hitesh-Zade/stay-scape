@@ -26,7 +26,7 @@ export const authOptions: NextAuthOptions = {
         await connectDB();
 
         const user = await User.findOne({ email: credentials?.email });
-
+        console.log(user)
         if (!user) {
           throw new Error("User not found");
         }
@@ -44,6 +44,7 @@ export const authOptions: NextAuthOptions = {
           id: user._id.toString(),
           name: user.name,
           email: user.email,
+          role: user.role,
         };
       },
     }),
@@ -66,13 +67,14 @@ export const authOptions: NextAuthOptions = {
         await connectDB();
 
         const existingUser = await User.findOne({ email: user.email });
-
+        console.log(existingUser, "existingUser");
         if (!existingUser) {
           // 👉 Create new Google user
           await User.create({
             name: user.name,
             email: user.email,
             image: user.image,
+            role: "user",
             provider: "google",
             password: null,
             isVerified: true,
@@ -99,21 +101,36 @@ export const authOptions: NextAuthOptions = {
 
     // ✅ JWT
     async jwt({ token, user }) {
+      if (user) {
+        token.email = user.email;
+        token.id = user.id;
+        token.role = user.role;
+      }
       await connectDB();
-      const dbUser = await User.findOne({ email: user.email });
 
-      token.id = dbUser?._id.toString();
+      const dbUser = await User.findOne({ email: token.email });
+
+      if (dbUser) {
+        token.id = dbUser._id.toString();
+        token.role = dbUser.role; // 👈 THIS FIXES GOOGLE LOGIN
+      }
+
+      return token;
     },
 
     // ✅ SESSION
     async session({ session, token }) {
-      if (session.user) {
-        session.user.id = token.id as string;
+      if (token) {
+        session.user.email = token.email;
+        session.user.id = token.id;
+        session.user.role = token.role;
       }
       return session;
-    },
+    }
   },
 };
+//export const runtime = "nodejs"; // 👈 IMPORTANT
+
 
 const handler = NextAuth(authOptions);
 

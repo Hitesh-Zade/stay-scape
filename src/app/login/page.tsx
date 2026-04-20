@@ -5,12 +5,14 @@ import { useState } from "react";
 import Link from 'next/link'
 import { Mail, Lock, } from 'lucide-react'
 import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorShow, setErrorShow] = useState("");
+const router = useRouter();
 
 
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -18,9 +20,10 @@ export default function LoginPage() {
           const res = await signIn("credentials", {
       email,
       password,
-      redirect: false, // 👈 IMPORTANT
+     redirect: true,
+  callbackUrl: "/",
     });
-
+console.log(res)
      if (res?.error) {
         setErrorShow(res.error)
     //  toast.error(res.error);
@@ -28,7 +31,8 @@ export default function LoginPage() {
       
       
       // redirect manually
-      window.location.href = "/";
+    //   router.refresh()
+     //router.replace("/");
       toast.success("Login successful 🎉");
     }
 

@@ -13,7 +13,7 @@ interface PropertyCardProps {
 export default function PropertyCard({ property }: PropertyCardProps) {
   const [isFavorite, setIsFavorite] = useState(false)
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  console.log(property)
+  //console.log(property)
   return (
     <Link href={`/properties/${property.id}`} className="group block">
       <div className="space-y-3">

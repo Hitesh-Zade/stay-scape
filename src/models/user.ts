@@ -26,6 +26,12 @@ const UserSchema = new mongoose.Schema(
       enum: ["credentials", "google"],
       default: "credentials",
     },
+       // Role (future use)
+    role: {
+      type: String,
+      enum: ["user", "host", "admin"],
+      default: "user",
+    },
 
     // Profile
     image: {
@@ -33,12 +39,7 @@ const UserSchema = new mongoose.Schema(
       default: null,
     },
 
-    // Role (future use)
-    role: {
-      type: String,
-      enum: ["user", "host", "admin"],
-      default: "user",
-    },
+ 
 
     // Airbnb-like fields
     isVerified: {
