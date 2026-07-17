@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import Image from "next/image";
 
-const Navbar = () => {
+const HostNavbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { data: session, status } = useSession();
   const router = useRouter();
@@ -41,31 +41,14 @@ const Navbar = () => {
             </span>
           </Link>
 
-          {/* Center Search Bar */}
-          {/* Search Bar - Desktop */}
-          <div className="hidden lg:flex items-center bg-white border-2 border-gray-200 rounded-full px-6 py-3 shadow-sm hover:shadow-md transition-shadow duration-300 cursor-pointer group">
-            <div className="flex items-center space-x-6 divide-x divide-gray-200">
-              <div className="pr-6">
-                <p className="text-sm font-semibold text-gray-900">Anywhere</p>
-              </div>
-              <div className="px-6">
-                <p className="text-sm font-semibold text-gray-900">Any week</p>
-              </div>
-              <div className="pl-6 flex items-center space-x-3">
-                <p className="text-sm text-gray-600">Add guests</p>
-                <div className="bg-primary-500 p-2 rounded-full group-hover:scale-110 transition-transform duration-300">
-                  <Search className="w-4 h-4 text-white" />
-                </div>
-              </div>
-            </div>
-          </div>
+        
           {/* Right Menu */}
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center space-x-4 my-[10]">
             {/* {session ? <span>{session.user?.name}</span> : ""} */}
 
             {session?.user?.role === "host" && (
-              <button onClick={() => router.push("/host/listings")} className="text-sm font-semibold text-gray-900 hover:text-primary-500 transition-colors duration-300 px-4 py-2 rounded-full hover:bg-gray-50">
-                Switch to Hosting
+              <button onClick={() => router.push("/")} className="text-sm font-semibold text-gray-900 hover:text-primary-500 transition-colors duration-300 px-4 py-2 rounded-full hover:bg-gray-50 ">
+                Switch to Travelling
               </button>
             )}
 
@@ -83,7 +66,7 @@ const Navbar = () => {
             {session && session.user?.role !== "host" && (
               <button
                 onClick={handleBecomeHost}
-                className="hidden md:block text-sm font-semibold text-gray-900 hover:text-primary-500 transition-colors duration-300 px-4 py-2 rounded-full hover:bg-gray-50"
+                className="hidden md:block text-sm font-semibold text-gray-900 hover:text-primary-500 transition-colors duration-300 px-4 py-2 rounded-full hover:bg-gray-50 my-1"
               >
                 Become a host
               </button>
@@ -176,4 +159,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+export default HostNavbar;

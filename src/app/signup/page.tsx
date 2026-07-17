@@ -6,6 +6,8 @@ import Link from "next/link";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
+import Navbar from "@/components/layout/Navbar";
+import { Button } from "@/components/button/Button";
 export default function LoginPage() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -38,7 +40,9 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-primary-50 via-white to-accent-50 py-12 px-4">
+    <>
+    <Navbar />
+        <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-primary-50 via-white to-accent-50 py-12 px-4">
       <div className="max-w-md w-full">
         <div className="bg-white rounded-3xl shadow-2xl p-8 md:p-12 animate-scale-in">
           {/* Header */}
@@ -57,7 +61,7 @@ export default function LoginPage() {
                 Name
               </label>
               <div className="relative">
-                <User className="absolute left-4 top-2/3 -translate-y-1/2 w-5 h-5 text-gray-400" />
+                <User className="absolute left-4 top-6.5 -translate-y-1/2 w-5 h-5 text-gray-400" />
                 <input
                   id="name"
                   placeholder="John doe"
@@ -74,7 +78,7 @@ export default function LoginPage() {
                 Email address
               </label>
               <div className="relative">
-                <Mail className="absolute left-4 top-2/3 -translate-y-1/2 w-5 h-5 text-gray-400" />
+                <Mail className="absolute left-4 top-6.5 -translate-y-1/2 w-5 h-5 text-gray-400" />
                 <input
                   id="email"
                   type="email"
@@ -95,7 +99,7 @@ export default function LoginPage() {
                 Password
               </label>
               <div className="relative">
-                <Lock className="absolute left-4 top-2/3 -translate-y-1/2 w-5 h-5 text-gray-400" />
+                <Lock className="absolute left-4 top-6.5 -translate-y-1/2 w-5 h-5 text-gray-400" />
                 <input
                   id="password"
                   type="password"
@@ -109,12 +113,13 @@ export default function LoginPage() {
               </div>
             </div>
 
-            <button
+            <Button
+            variant="primary"
               type="submit"
-              className="w-full bg-primary-500 hover:bg-primary-600 text-white font-bold py-3 rounded-xl transition-all duration-300 hover:scale-[1.02] shadow-lg hover:shadow-xl"
+              className="w-full py-3"
             >
               Sign Up
-            </button>
+            </Button>
           </form>
           {/* Divider */}
           <div className="relative my-6">
@@ -130,11 +135,11 @@ export default function LoginPage() {
 
           {/* Social Login */}
           <div className="space-y-3 mb-6">
-            <button onClick={() => signIn("google",  { callbackUrl: "/" })} className="w-full flex items-center justify-center space-x-3 px-6 py-3 border-2 border-gray-200 rounded-xl hover:bg-gray-50 hover:border-gray-300 transition-all duration-300 group">
+            <Button onClick={() => signIn("google",  { callbackUrl: "/" })} className="w-full flex items-center justify-center space-x-3 px-6 py-3 border-2 border-gray-200 rounded-xl hover:bg-gray-50 hover:border-gray-300 transition-all duration-300 group">
               <span className="font-semibold text-gray-700">
                 Continue with Google
               </span>
-            </button>
+            </Button>
           </div>
 
           {/* Sign Up Link */}
@@ -150,5 +155,6 @@ export default function LoginPage() {
         </div>
       </div>
     </div>
+    </>
   );
 }

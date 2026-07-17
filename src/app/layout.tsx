@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import "./layout.css";
-import Navbar from "@/components/layout/Navbar";
+// import "./layout.css";
+// import Navbar from "@/components/layout/Navbar";
 import Providers from "./providers";
 import { Toaster } from "react-hot-toast";
 
@@ -17,10 +17,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`h-full antialiased`}>
-      <body className="min-h-full flex flex-col">
+      <head>
+  <link
+    href="https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@800,700,500,400&display=swap"
+    rel="stylesheet"
+  />
+</head>
+      <body className="min-h-full ">
         <Providers>
-          <Navbar />
-          
           {children}
           <Toaster position="bottom-right" />
         </Providers>

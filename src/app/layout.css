@@ -282,22 +282,7 @@ table {
 3. Remove default padding in all browsers.
 */
 
-button,
-input,
-optgroup,
-select,
-textarea {
-  font-family: inherit; /* 1 */
-  font-feature-settings: inherit; /* 1 */
-  font-variation-settings: inherit; /* 1 */
-  font-size: 100%; /* 1 */
-  font-weight: inherit; /* 1 */
-  line-height: inherit; /* 1 */
-  letter-spacing: inherit; /* 1 */
-  color: inherit; /* 1 */
-  margin: 0; /* 2 */
-  padding: 0; /* 3 */
-}
+
 
 /*
 Remove the inheritance of text transform in Edge and Firefox.
@@ -556,6 +541,9 @@ h1, h2, h3, h4, h5, h6{
 }
 .bottom-3{
   bottom: 0.75rem;
+}
+.bottom-0{
+  bottom: 0;
 }
 .left-0{
   left: 0px;
@@ -1138,6 +1126,10 @@ h1, h2, h3, h4, h5, h6{
 }
 .font-display{
   font-family: Cabinet Grotesk, system-ui, sans-serif;
+}
+.text-lg{
+  font-size: 1rem;
+  line-height: 1.5rem;
 }
 .text-2xl{
   font-size: 1.5rem;
