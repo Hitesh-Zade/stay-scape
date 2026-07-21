@@ -7,12 +7,7 @@ import { connectDB } from "@/lib/db";
 export async function POST(req: Request) {
   try {
     const { name, email, password } = await req.json();
-
-    debugger;
-   console.log(name, email, password)
-  console.log("Before DB connect");
-await connectDB();
-console.log("After DB connect");
+    await connectDB();
 
     const hashedPassword = await bcrypt.hash(password, 10);
 

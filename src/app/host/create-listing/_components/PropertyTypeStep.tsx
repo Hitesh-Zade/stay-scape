@@ -20,8 +20,8 @@ const setPropertyType = useListingStore((state) => state.setPropertyType);
           key={property.id}
           title={property.title}
           icon={property.icon}
-          selected={propertyType === property.id}
-          onClick={() => setPropertyType(property.id)}
+          selected={propertyType === property.title}
+          onClick={() => setPropertyType(property.title)}
         />
       ))}
         </div>

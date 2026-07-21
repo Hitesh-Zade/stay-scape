@@ -5,7 +5,7 @@ import { useListingStore } from "@/store/listingStore";
 export default function PlaceTypeStep() {
     const setPlaceType = useListingStore((state) => state.setPlaceType);
     const placeType = useListingStore((state) => state.placeType);
-
+    console.log(useListingStore.getState())
   return (
     <>
       <StepHeader
@@ -14,9 +14,9 @@ export default function PlaceTypeStep() {
       />
       {placeTypes.map((place) => {
         const Icon = place.icon;
-        const selected = placeType === place.id;
+        const selected = placeType === place.title;
         return (
-          <div onClick={() => setPlaceType(place.id)} key={place.id}
+          <div onClick={() => setPlaceType(place.title)} key={place.id}
            className={`border-2 rounded-xl p-5 transition flex items-center justify-between mb-5 
             ${
         selected

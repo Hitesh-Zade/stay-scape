@@ -1,24 +1,29 @@
-import { BasicDetailsType } from "../_types/listings";
+import type { BasicDetails } from "@/store/listingStore";
 
-export const basicTypes:BasicDetailsType[] = [
-{
+export interface BasicDetailsType {
+  id: number;
+  title: string;
+  key: keyof BasicDetails;
+}
+export const basicTypes: BasicDetailsType[] = [
+  {
     id: 1,
     title: "Guests",
-    count: 4
-},
-{
+    key: "guests",
+  },
+  {
     id: 2,
     title: "Bedroom",
-    count: 1
-},
-{
-    id:3,
+    key: "bedroom",
+  },
+  {
+    id: 3,
     title: "Beds",
-    count: 1
-},
-{
+    key: "beds",
+  },
+  {
     id: 4,
     title: "Bathroom",
-    count: 1
-}
-]
+    key: "bathrooms",
+  },
+];

@@ -2,11 +2,18 @@ import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
 export interface Address {
+  address: string;
   street: string;
   city: string;
   state: string;
   country: string;
   pincode: string;
+}
+export interface BasicDetails {
+  guests: number;
+  bedroom: number;
+  beds: number;
+  bathrooms: number;
 }
 
 export interface ListingState {
@@ -16,6 +23,7 @@ export interface ListingState {
   placeType: string;
 
   address: Address;
+  basicDetails: BasicDetails;
 
   title: string;
   description: string;
@@ -34,6 +42,7 @@ export interface ListingState {
   setPlaceType: (type: string) => void;
 
   updateAddress: (address: Partial<Address>) => void;
+  updateBasicDetails: (basicDetails: Partial<BasicDetails>) => void;
 
   setTitle: (title: string) => void;
   setDescription: (description: string) => void;
@@ -56,11 +65,19 @@ export const useListingStore = create<ListingState>()(
       placeType: "",
 
       address: {
+        address: "",
         street: "",
         city: "",
+        pincode: "",
         state: "",
         country: "",
-        pincode: "",
+      },
+
+      basicDetails: {
+        guests: 0,
+        bedroom: 0,
+        beds: 0,
+        bathrooms: 0,
       },
 
       title: "",
@@ -98,6 +115,13 @@ export const useListingStore = create<ListingState>()(
             ...address,
           },
         })),
+      updateBasicDetails: (data) =>
+        set((state) => ({
+          basicDetails: {
+            ...state.basicDetails,
+            ...data,
+          },
+        })),
 
       setTitle: (title) =>
         set({ title }),
@@ -129,11 +153,18 @@ export const useListingStore = create<ListingState>()(
           propertyType: "",
           placeType: "",
           address: {
+            address: "",
             street: "",
             city: "",
             state: "",
             country: "",
             pincode: "",
+          },
+          basicDetails: {
+            guests: 0,
+            bedroom: 0,
+            beds: 0,
+            bathrooms: 0,
           },
           title: "",
           description: "",

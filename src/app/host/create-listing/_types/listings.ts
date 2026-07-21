@@ -1,4 +1,5 @@
 import { LucideIcon } from "lucide-react";
+import type { BasicDetails } from "@/store/listingStore";
 
 export interface PropertyType {
   id: string;
@@ -12,10 +13,11 @@ export interface PlaceType {
   desc: string;
   icon: LucideIcon;
 }
+
 export interface BasicDetailsType {
   id: number;
   title: string;
-  count: number;
+  key: keyof BasicDetails;
 }
 
 export interface Amenity {
@@ -35,4 +37,13 @@ export interface ListingPhoto {
     id: string;
     url: string;
     isCover: boolean;
+}
+
+export interface Address {
+  address: string;
+  street: string;
+  city: string;
+  pin: string;
+  state: string;
+  country: string;
 }

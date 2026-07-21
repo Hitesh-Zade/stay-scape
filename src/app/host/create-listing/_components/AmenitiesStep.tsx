@@ -33,7 +33,7 @@ return<>
 
       <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-3">
         {category.amenities.map((amenity) => {
-          const selected = selectedAmenities.includes(amenity.id);
+          const selected = selectedAmenities.includes(amenity.title);
 
           return (
             <AmenityCard
@@ -44,8 +44,8 @@ return<>
               selected={selected}
               onClick={() =>
                 selected
-                  ? removeAmenity(amenity.id)
-                  : addAmenity(amenity.id)
+                  ? removeAmenity(amenity.title)
+                  : addAmenity(amenity.title)
               }
             />
           );

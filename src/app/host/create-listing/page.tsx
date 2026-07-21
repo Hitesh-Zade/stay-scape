@@ -11,7 +11,10 @@ import AddressStep from "./_components/AddressStep";
 import ProgressBar from "./_components/ProgressBar";
 import BasicDetailsStep from "./_components/BasicsDetailsStep";
 import AmenitiesStep from "./_components/AmenitiesStep";
-import PhotosStep from "./_components/PhotosStep";
+// import PhotosStep from "./_components/PhotosStep";
+import TitleStep from "./_components/TitleStep";
+import PricingStep from "./_components/PricingStep";
+import ReviewDetailsStep from "./_components/ReviewDetailsStep";
 
 export default function CreateListings() {
   const currentStep = useListingStore((state) => state.currentStep);
@@ -28,7 +31,11 @@ export default function CreateListings() {
       case 5:
         return <AmenitiesStep />;
       case 6:
-        return <PhotosStep />;
+        return <TitleStep />;
+      case 7:
+        return <PricingStep />;
+      case 8:
+        return <ReviewDetailsStep />;
       default:
         return <PropertyTypeStep />;
     }

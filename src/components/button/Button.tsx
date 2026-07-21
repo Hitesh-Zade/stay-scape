@@ -1,8 +1,9 @@
 import React from 'react';
 import {cn} from '@/lib/cn';
+import { LoaderCircle } from "lucide-react";
 import { cva, VariantProps } from 'class-variance-authority';
 
-const buttonVariants = cva('inline-flex items-center border justify-center p-3 rounded-lg transition-all  duration-300', {
+const buttonVariants = cva('inline-flex items-center border justify-center p-3 rounded-lg transition-all not-disabled:cursor-pointer disabled:cursor-not-all disabled:opacity-50   duration-300', {
     variants:{
         variant:{
             primary:"bg-primary hover:bg-primary text-white border-primary",
@@ -21,6 +22,7 @@ export function Button({
     variant,
   className,
   children,
+  loading,
   ...props
 }: ButtonProps) {
   return (
@@ -29,8 +31,13 @@ export function Button({
         className
       )}
       {...props}
+
+      aria-disabled={props.disabled}
     >
       {children}
+     {loading && (
+        <LoaderCircle className="h-4 w-4 ml-2 animate-spin" />
+      )}
     </button>
   );
 }

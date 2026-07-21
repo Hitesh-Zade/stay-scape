@@ -1,15 +1,35 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap');
+@import url('https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@800,700,500,400&display=swap');
 @import "tailwindcss";
 
+
+html,
+:host {
+  line-height: 1.5; /* 1 */
+  -webkit-text-size-adjust: 100%; /* 2 */ /* 3 */
+  tab-size: 4; /* 3 */
+  font-family: Manrope, system-ui, sans-serif; 
+  font-feature-settings: normal; /* 5 */
+  font-variation-settings: normal; /* 6 */
+  -webkit-tap-highlight-color: transparent; /* 7 */
+}
 @theme{
    --color-primary: #0a1428;
    --color-secondary: #f97316;
+    --color-danger:#bf263a
 }
 :root {
   --background: #ffffff;
   --foreground: #171717;
+ 
 }
 
-
+h1, h2, h3, h4, h5, h6{
+  font-family: Cabinet Grotesk, system-ui, sans-serif;
+}
+.font-display{
+  font-family: Cabinet Grotesk, system-ui, sans-serif;
+}
 
 @media (prefers-color-scheme: dark) {
   :root {
@@ -21,7 +41,7 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: Manrope, system-ui, sans-serif; 
 }
 
 .container-custom{
