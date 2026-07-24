@@ -24,7 +24,7 @@ export interface Amenity {
   id: string;
   title: string;
   description?: string;
-  icon: React.ElementType;
+  icon: LucideIcon;
 }
 
 export interface AmenityCategory {

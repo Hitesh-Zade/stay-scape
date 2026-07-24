@@ -8,43 +8,48 @@ const ListingSchema = new mongoose.Schema(
       ref: "User",
       required: true,
     },
+     // Property
+    listingId: {
+      type: String,
+      default: "",
+    },
 
     // Property
     propertyType: {
       type: String,
-      required: true,
+      default: "",
     },
 
     placeType: {
       type: String,
-      required: true,
+     default: "",
     },
 
     // Address
     address: {
       address: {
         type: String,
-        required: true,
+       default: "",
       },
       street: {
         type: String,
-        required: true,
+        default: "",
       },
       city: {
         type: String,
-        required: true,
+         default: "",
       },
       state: {
         type: String,
-        required: true,
+       default: "",
       },
       country: {
         type: String,
-        required: true,
+         default: "",
       },
       pincode: {
         type: String,
-        required: true,
+        default: "",
       },
     },
 
@@ -85,20 +90,20 @@ const ListingSchema = new mongoose.Schema(
     // Listing Info
     title: {
       type: String,
-      required: true,
+      default: "",
       trim: true,
     },
 
     description: {
       type: String,
-      required: true,
+      default: "",
       trim: true,
     },
 
     // Pricing
     price: {
       type: Number,
-      required: true,
+     default: "",
       min: 0,
     },
 

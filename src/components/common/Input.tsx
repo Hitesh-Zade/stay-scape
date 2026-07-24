@@ -12,7 +12,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
         {label && (
           <label
             htmlFor={id}
-            className="mb-2 block text-lg font-semibold text-gray-700"
+            className="mb-1 block text-md font-semibold text-gray-700"
           >
             {label}
             {props.required && (
@@ -35,14 +35,14 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
             disabled:cursor-not-allowed
             disabled:bg-gray-100
             disabled:text-gray-500
-            ${error ? "border-red-500 focus:border-red-500 focus:ring-red-200" : ""}
+            ${error ? "border-danger focus:border-danger focus:ring-danger" : ""}
             ${className}
           `}
           {...props}
         />
 
         {error && (
-          <p className="mt-1 text-sm text-red-500">
+          <p className="mt-1 text-sm text-danger">
             {error}
           </p>
         )}

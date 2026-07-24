@@ -1,22 +1,29 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { MapPin } from "lucide-react";
 import Link from "next/link";
 import PropertyTypeStep from "./_components/PropertyTypeStep";
 import NavigationButtons from "./_components/NavigationButtons";
 import { useListingStore } from "@/store/listingStore";
 import PlaceTypeStep from "./_components/PlaceTypeStep";
-import AddressStep from "./_components/AddressStep";
+import AddressStep, { AddressStepRef } from "./_components/AddressStep";
 import ProgressBar from "./_components/ProgressBar";
 import BasicDetailsStep from "./_components/BasicsDetailsStep";
 import AmenitiesStep from "./_components/AmenitiesStep";
 // import PhotosStep from "./_components/PhotosStep";
-import TitleStep from "./_components/TitleStep";
-import PricingStep from "./_components/PricingStep";
+import TitleStep, { TitleStepRef } from "./_components/TitleStep";
+import PricingStep, { PricingStepRef } from "./_components/PricingStep";
 import ReviewDetailsStep from "./_components/ReviewDetailsStep";
+import { Button } from "@/components/button/Button";
+import { useListingActions } from "@/hooks/useListingActions";
 
 export default function CreateListings() {
+  const addressRef = useRef<AddressStepRef>(null);
+  const titleRef = useRef<TitleStepRef>(null);
+const pricingRef = useRef<PricingStepRef>(null);
+
+  const { saveAndExit } = useListingActions();
   const currentStep = useListingStore((state) => state.currentStep);
   const renderStep = () => {
     switch (currentStep) {
@@ -25,21 +32,30 @@ export default function CreateListings() {
       case 2:
         return <PlaceTypeStep />;
       case 3:
-        return <AddressStep />;
+        return <AddressStep ref={addressRef} />;
       case 4:
         return <BasicDetailsStep />;
       case 5:
         return <AmenitiesStep />;
       case 6:
-        return <TitleStep />;
+        return <TitleStep ref={titleRef} />;
       case 7:
-        return <PricingStep />;
+        return <PricingStep ref={pricingRef} />;
       case 8:
         return <ReviewDetailsStep />;
-      default:
-        return <PropertyTypeStep />;
     }
   };
+
+
+  const stepRef =
+  currentStep === 3
+    ? addressRef
+    : currentStep === 6
+    ? titleRef
+    : currentStep === 7
+    ? pricingRef
+    : null;
+
   return (
     <>
       <header className="fixed left-0 right-0 top-0 z-50 bg-white/80 backdrop-blur-lg border-b border-gray-200">
@@ -54,6 +70,9 @@ export default function CreateListings() {
                 StayScape
               </span>
             </Link>
+            <Button variant="default" onClick={saveAndExit}>
+              Save & Exit
+            </Button>
           </div>
         </nav>
         <ProgressBar currentStep={currentStep} totalSteps={8} />
@@ -63,7 +82,7 @@ export default function CreateListings() {
         <div className="mx-auto max-w-2xl">{renderStep()}</div>
       </div>
 
-      <NavigationButtons totalSteps={8} />
+      <NavigationButtons totalSteps={8} stepRef={stepRef} />
     </>
   );
 }

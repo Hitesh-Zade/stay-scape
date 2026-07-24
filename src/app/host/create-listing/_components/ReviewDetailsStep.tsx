@@ -42,7 +42,7 @@ export default function ReviewDetailsStep() {
         </div>
         <div className="flex">
           <p>Bedrooms:</p>
-          <p className="ml-2">{store.basicDetails.bedroom}</p>
+          <p className="ml-2">{store.basicDetails.bedrooms}</p>
         </div>
         <div className="flex">
           <p>Beds:</p>

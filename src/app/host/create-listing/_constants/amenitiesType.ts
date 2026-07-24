@@ -14,10 +14,8 @@ import {
   SoapDispenserDroplet,
   Bed,
   BriefcaseBusiness,
-  Car,
   Dumbbell,
   Flame,
-  Trees,
   WavesLadder,
   House,
   AlarmSmoke,
@@ -26,7 +24,7 @@ import {
   BatteryCharging,
   Armchair,
 } from "lucide-react";
-import { Amenity, AmenityCategory } from "../_types/listings";
+import {  AmenityCategory } from "../_types/listings";
 
 export const amenities: AmenityCategory[] = [
   {

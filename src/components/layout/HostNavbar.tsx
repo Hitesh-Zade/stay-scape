@@ -9,7 +9,7 @@ import Image from "next/image";
 
 const HostNavbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { data: session, status } = useSession();
+  const { data: session, } = useSession();
   const router = useRouter();
   const handleBecomeHost = async () => {
     const res = await fetch("/api/become-host", {
@@ -26,7 +26,6 @@ const HostNavbar = () => {
       toast.error(data.error || "Something went wrong");
     }
   };
-  console.log(session?.user);
   return (
     <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-lg border-b border-gray-200">
       <nav className="container-custom py-4">

@@ -1,10 +1,12 @@
-
 import { useMutation } from "@tanstack/react-query";
 import { ListingService } from "@/services/listing.services";
 
+export function usePublishListing(){
 
-export function useCreateDraft(){
-    return useMutation({
-        mutationFn: ListingService.createDraft,
-    })
+  return useMutation({
+
+    mutationFn: ListingService.publish
+
+  });
+
 }

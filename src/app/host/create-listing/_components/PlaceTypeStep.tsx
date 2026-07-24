@@ -5,7 +5,6 @@ import { useListingStore } from "@/store/listingStore";
 export default function PlaceTypeStep() {
     const setPlaceType = useListingStore((state) => state.setPlaceType);
     const placeType = useListingStore((state) => state.placeType);
-    console.log(useListingStore.getState())
   return (
     <>
       <StepHeader

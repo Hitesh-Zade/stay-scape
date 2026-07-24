@@ -1,10 +1,28 @@
 import Input from "@/components/common/Input";
 import StepHeader from "./StepHeader";
-import { useListingStore } from "@/store/listingStore";
+import { Address, useListingStore } from "@/store/listingStore";
+import { forwardRef, useImperativeHandle, useState } from "react";
+import { validateAddress } from "@/hooks/useAddressValidation";
 
-export default function AddressStep() {
+export interface AddressStepRef {
+  validate: () => boolean;
+}
+
+const AddressStep = forwardRef<AddressStepRef>((_, ref) => {
   const address = useListingStore((state) => state.address);
   const updateAddress = useListingStore((state) => state.updateAddress);
+  const [errors, setErrors] = useState<Partial<Record<keyof Address, string>>>(
+    {},
+  );
+  useImperativeHandle(ref, () => ({
+    validate() {
+      const validationErrors = validateAddress(address);
+
+      setErrors(validationErrors);
+
+      return Object.keys(validationErrors).length === 0;
+    },
+  }));
 
   return (
     <>
@@ -19,7 +37,17 @@ export default function AddressStep() {
           label="Address"
           placeholder="Enter your Address"
           value={address.address}
-          onChange={(e) => updateAddress({ address: e.target.value })}
+          onChange={(e) => {
+            updateAddress({ address: e.target.value });
+
+            if (errors.address) {
+              setErrors((prev) => ({
+                ...prev,
+                address: "",
+              }));
+            }
+          }}
+          error={errors.address}
         />
         <Input
           id="street"
@@ -27,7 +55,17 @@ export default function AddressStep() {
           placeholder="Enter your Street"
           name="street"
           value={address.street}
-          onChange={(e) => updateAddress({ street: e.target.value })}
+        onChange={(e) => {
+    updateAddress({ street: e.target.value });
+
+    if (errors.street) {
+      setErrors((prev) => ({
+        ...prev,
+        street: "",
+      }));
+    }
+  }}
+          error={errors.street}
         />
         <Input
           id="city"
@@ -35,15 +73,17 @@ export default function AddressStep() {
           placeholder="Enter your City"
           name="city"
           value={address.city}
-          onChange={(e) => updateAddress({ city: e.target.value })}
-        />
-        <Input
-          id="pin"
-          label="Pin"
-          placeholder="Enter your Pin"
-          name="pin"
-          value={address.pincode}
-          onChange={(e) => updateAddress({ pincode: e.target.value })}
+          onChange={(e) => {
+    updateAddress({ city: e.target.value });
+
+    if (errors.city) {
+      setErrors((prev) => ({
+        ...prev,
+        city: "",
+      }));
+    }
+  }}
+          error={errors.city}
         />
         <Input
           id="state"
@@ -51,18 +91,59 @@ export default function AddressStep() {
           placeholder="Enter your State"
           name="state"
           value={address.state}
-          onChange={(e) => updateAddress({ state: e.target.value })}
+          onChange={(e) => {
+    updateAddress({ state: e.target.value });
+
+    if (errors.state) {
+      setErrors((prev) => ({
+        ...prev,
+        state: "",
+      }));
+    }
+  }}
+          error={errors.state}
+        />
+        <Input
+          id="pin"
+          label="Pin"
+          placeholder="Enter your Pin"
+          name="pin"
+          value={address.pincode}
+         onChange={(e) => {
+    updateAddress({ pincode: e.target.value });
+
+    if (errors.pincode) {
+      setErrors((prev) => ({
+        ...prev,
+        pincode: "",
+      }));
+    }
+  }}
+          error={errors.pincode}
         />
         <Input
           id="country"
           label="Country"
           placeholder="Enter your Country"
-          className="mb-18"
+          className=""
           name="country"
           value={address.country}
-          onChange={(e) => updateAddress({ country: e.target.value })}
+         onChange={(e) => {
+    updateAddress({ country: e.target.value });
+
+    if (errors.country) {
+      setErrors((prev) => ({
+        ...prev,
+        country: "",
+      }));
+    }
+  }}
+          error={errors.country}
         />
       </div>
     </>
   );
-}
+});
+AddressStep.displayName = "AddressStep";
+
+export default AddressStep;

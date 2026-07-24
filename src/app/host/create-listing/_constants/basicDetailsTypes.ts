@@ -14,7 +14,7 @@ export const basicTypes: BasicDetailsType[] = [
   {
     id: 2,
     title: "Bedroom",
-    key: "bedroom",
+    key: "bedrooms",
   },
   {
     id: 3,

@@ -1,3 +1,5 @@
+import { placeTypes } from "@/app/host/create-listing/_constants/placeTypes";
+import { propertyTypes } from "@/app/host/create-listing/_constants/propertyTypes";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
@@ -11,12 +13,13 @@ export interface Address {
 }
 export interface BasicDetails {
   guests: number;
-  bedroom: number;
+  bedrooms: number;
   beds: number;
   bathrooms: number;
 }
 
 export interface ListingState {
+  listingId: string;
   currentStep: number;
 
   propertyType: string;
@@ -41,6 +44,7 @@ export interface ListingState {
   setPropertyType: (type: string) => void;
   setPlaceType: (type: string) => void;
 
+  setListingId: (listing: undefined) => void;
   updateAddress: (address: Partial<Address>) => void;
   updateBasicDetails: (basicDetails: Partial<BasicDetails>) => void;
 
@@ -59,10 +63,11 @@ export interface ListingState {
 export const useListingStore = create<ListingState>()(
   persist(
     (set) => ({
+      listingId: "",
       currentStep: 1,
 
-      propertyType: "",
-      placeType: "",
+      propertyType: propertyTypes[0].title,
+      placeType: placeTypes[0].title,
 
       address: {
         address: "",
@@ -74,10 +79,10 @@ export const useListingStore = create<ListingState>()(
       },
 
       basicDetails: {
-        guests: 0,
-        bedroom: 0,
-        beds: 0,
-        bathrooms: 0,
+      guests: 4,
+            bedrooms: 2,
+            beds: 2,
+            bathrooms: 2,
       },
 
       title: "",
@@ -88,7 +93,10 @@ export const useListingStore = create<ListingState>()(
       images: [],
 
       amenities: [],
-
+      setListingId: (id) =>
+        set({
+          listingId: id,
+        }),
       setCurrentStep: (step) =>
         set({ currentStep: step }),
 
@@ -150,8 +158,8 @@ export const useListingStore = create<ListingState>()(
       resetListing: () =>
         set({
           currentStep: 1,
-          propertyType: "",
-          placeType: "",
+          propertyType: propertyTypes[0].title,
+          placeType: placeTypes[0].title,
           address: {
             address: "",
             street: "",
@@ -161,10 +169,10 @@ export const useListingStore = create<ListingState>()(
             pincode: "",
           },
           basicDetails: {
-            guests: 0,
-            bedroom: 0,
-            beds: 0,
-            bathrooms: 0,
+            guests: 4,
+            bedrooms: 2,
+            beds: 2,
+            bathrooms: 2,
           },
           title: "",
           description: "",

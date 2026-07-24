@@ -23,7 +23,7 @@ export default function AmenityCard({
       type="button"
       onClick={onClick}
       className={cn(
-        "flex min-h-[130px] w-full flex-col rounded-xl border p-5 text-left transition-all items-start justify-between duration-200",
+        "flex min-h-32.5 w-full flex-col rounded-xl border p-5 text-left transition-all items-start justify-between duration-200",
         "hover:border-black",
         selected
           ? "border-black bg-neutral-100"

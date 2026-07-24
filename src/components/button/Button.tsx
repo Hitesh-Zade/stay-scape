@@ -9,7 +9,8 @@ const buttonVariants = cva('inline-flex items-center border justify-center p-3 r
             primary:"bg-primary hover:bg-primary text-white border-primary",
             secondary:"bg-gray-300 border-none hover:bg-primary text-primary hover:text-white",
             outline:"border-gray-400 border bg-transparent hover:bg-gray-200",
-            icon:""
+            icon:"",
+            default:"bg-transparent hover:bg-gray-200 border-none"
         }
     }
 })

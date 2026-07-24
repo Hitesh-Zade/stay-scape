@@ -9,7 +9,7 @@ export default function StepHeader({
 }: StepHeaderProps) {
   return (
     <div className="mb-12 mt-5">
-      <h1 className="lg:text-3xl text-lg md:text-xl  font-semibold text-gray-900">
+      <h1 className="lg:text-2xl text-lg md:text-xl  font-semibold text-gray-900">
         {title}
       </h1>
 

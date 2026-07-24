@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
-// import "./layout.css";
-// import Navbar from "@/components/layout/Navbar";
+import QueryProvider from "@/providers/QueryProvider";
 import Providers from "./providers";
 import { Toaster } from "react-hot-toast";
 
@@ -23,7 +22,7 @@ export default function RootLayout({
     rel="stylesheet"
   />
 </head>
-      <body className="min-h-full ">
+      <body className="min-h-full">
         <Providers>
           {children}
           <Toaster position="bottom-right" />
