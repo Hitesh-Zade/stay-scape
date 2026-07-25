@@ -1,5 +1,5 @@
 "use client";
-
+import { CldImage } from 'next-cloudinary';
 import { Button } from "@/components/button/Button";
 import { Plus, X } from "lucide-react";
 import UploadDropzone from "./UploadDropzone";
@@ -42,7 +42,14 @@ export default function UploadPhotoModal({open, onClose}:(UploadModalProps)){
         <div className="p-5"> 
             <UploadDropzone/>
         </div>
-
+ <CldImage
+            src="cld-sample-5" // Use this sample image or upload your own via the Media Library
+            width="500" // Transform the image: auto-crop to square aspect_ratio
+            height="500"
+            crop={{
+              type: 'auto',
+              source: true
+            }} alt={''}    />
         {/* Footer */}
         <div className="flex items-center justify-between border-t border-gray-300 px-7 py-4">
           <Button

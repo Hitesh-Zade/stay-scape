@@ -11,12 +11,12 @@ import AddressStep, { AddressStepRef } from "./_components/AddressStep";
 import ProgressBar from "./_components/ProgressBar";
 import BasicDetailsStep from "./_components/BasicsDetailsStep";
 import AmenitiesStep from "./_components/AmenitiesStep";
-// import PhotosStep from "./_components/PhotosStep";
 import TitleStep, { TitleStepRef } from "./_components/TitleStep";
 import PricingStep, { PricingStepRef } from "./_components/PricingStep";
 import ReviewDetailsStep from "./_components/ReviewDetailsStep";
 import { Button } from "@/components/button/Button";
 import { useListingActions } from "@/hooks/useListingActions";
+import PhotosStep from "./_components/PhotosStep";
 
 export default function CreateListings() {
   const addressRef = useRef<AddressStepRef>(null);
@@ -37,11 +37,13 @@ const pricingRef = useRef<PricingStepRef>(null);
         return <BasicDetailsStep />;
       case 5:
         return <AmenitiesStep />;
-      case 6:
-        return <TitleStep ref={titleRef} />;
+     case 6:
+        return <PhotosStep />;
       case 7:
-        return <PricingStep ref={pricingRef} />;
+        return <TitleStep ref={titleRef} />;
       case 8:
+        return <PricingStep ref={pricingRef} />;
+      case 9:
         return <ReviewDetailsStep />;
     }
   };
@@ -82,7 +84,7 @@ const pricingRef = useRef<PricingStepRef>(null);
         <div className="mx-auto max-w-2xl">{renderStep()}</div>
       </div>
 
-      <NavigationButtons totalSteps={8} stepRef={stepRef} />
+      <NavigationButtons totalSteps={9} stepRef={stepRef} />
     </>
   );
 }

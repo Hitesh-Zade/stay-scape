@@ -19,7 +19,7 @@ interface ListingCardProps {
 }
 
 const ListingCard = ({ listing }: ListingCardProps) => {
-    
+
   return (
     <Link
       href={`/host/listings/${listing._id}`}
@@ -30,7 +30,7 @@ const ListingCard = ({ listing }: ListingCardProps) => {
           src={listing.images?.[0] || "/images/placeholder.jpg"}
           alt={listing.title}
           fill
-          className="object-cover transition duration-300 group-hover:scale-105"
+          className="object-cover transition duration-300"
         />
 
         <span
