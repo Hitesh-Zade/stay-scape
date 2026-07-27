@@ -2,12 +2,11 @@ import { useListingStore } from "@/store/listingStore";
 import {  Plus } from "lucide-react";
 import { CldUploadWidget } from "next-cloudinary";
 
-export default function AddPhotoCard() {
-  const images = useListingStore((state) => state.images);
-  const setImages = useListingStore((state) => state.setImages);
+export default function AddCoverPhoto() {
+  const setcoverImage = useListingStore((state) => state.setcoverImage);
   return (
     <>
-      <div className="bg-gray-50 h-40 flex items-center justify-center rounded-lg">
+      <div className="bg-gray-50 h-80 flex items-center justify-center rounded-lg">
         <CldUploadWidget
           uploadPreset="stayScape_uploads"
           options={{
@@ -17,7 +16,7 @@ export default function AddPhotoCard() {
           }}
           onSuccess={(result) => {
             const info = result.info as { secure_url: string };
-            setImages([...images, info.secure_url]);
+            setcoverImage(info.secure_url);
           }}
         >
           {({ open }) => (

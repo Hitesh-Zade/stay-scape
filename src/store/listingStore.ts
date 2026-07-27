@@ -33,7 +33,8 @@ export interface ListingState {
 
   price: number;
 
-  images: File[];
+  coverImage: string;
+  images: string[];
 
   amenities: string[];
 
@@ -51,8 +52,8 @@ export interface ListingState {
   setTitle: (title: string) => void;
   setDescription: (description: string) => void;
   setPrice: (price: number) => void;
-
-  setImages: (images: File[]) => void;
+   setcoverImage: (coverImage: string) => void;
+  setImages: (images: string[]) => void;
 
   addAmenity: (amenity: string) => void;
   removeAmenity: (amenity: string) => void;
@@ -79,10 +80,10 @@ export const useListingStore = create<ListingState>()(
       },
 
       basicDetails: {
-      guests: 4,
-            bedrooms: 2,
-            beds: 2,
-            bathrooms: 2,
+        guests: 4,
+        bedrooms: 2,
+        beds: 2,
+        bathrooms: 2,
       },
 
       title: "",
@@ -90,6 +91,7 @@ export const useListingStore = create<ListingState>()(
 
       price: 0,
 
+      coverImage: "",
       images: [],
 
       amenities: [],
@@ -140,6 +142,9 @@ export const useListingStore = create<ListingState>()(
       setPrice: (price) =>
         set({ price }),
 
+      setcoverImage: (coverImage) =>
+        set({ coverImage }),
+
       setImages: (images) =>
         set({ images }),
 
@@ -177,6 +182,7 @@ export const useListingStore = create<ListingState>()(
           title: "",
           description: "",
           price: 0,
+          coverImage: "",
           images: [],
           amenities: [],
         }),

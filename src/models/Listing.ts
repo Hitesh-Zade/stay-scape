@@ -81,6 +81,10 @@ const ListingSchema = new mongoose.Schema(
     ],
 
     // Photos (Cloudinary/S3 URLs)
+     // Listing Info
+  coverImage: {
+    type: String,
+  },
     images: [
       {
         type: String,

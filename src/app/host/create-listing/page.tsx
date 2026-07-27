@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import { MapPin } from "lucide-react";
 import Link from "next/link";
 import PropertyTypeStep from "./_components/PropertyTypeStep";
@@ -17,11 +17,14 @@ import ReviewDetailsStep from "./_components/ReviewDetailsStep";
 import { Button } from "@/components/button/Button";
 import { useListingActions } from "@/hooks/useListingActions";
 import PhotosStep from "./_components/PhotosStep";
+import { StepRef } from "./_components/photos/PhotoGallery";
 
 export default function CreateListings() {
   const addressRef = useRef<AddressStepRef>(null);
   const titleRef = useRef<TitleStepRef>(null);
 const pricingRef = useRef<PricingStepRef>(null);
+const photoGalleryRef = useRef<StepRef>(null);
+
 
   const { saveAndExit } = useListingActions();
   const currentStep = useListingStore((state) => state.currentStep);
@@ -38,7 +41,7 @@ const pricingRef = useRef<PricingStepRef>(null);
       case 5:
         return <AmenitiesStep />;
      case 6:
-        return <PhotosStep />;
+        return <PhotosStep  ref={photoGalleryRef} />;
       case 7:
         return <TitleStep ref={titleRef} />;
       case 8:
@@ -51,8 +54,10 @@ const pricingRef = useRef<PricingStepRef>(null);
 
   const stepRef =
   currentStep === 3
-    ? addressRef
-    : currentStep === 6
+    ? addressRef :
+      currentStep === 6
+    ? photoGalleryRef
+    : currentStep === 7
     ? titleRef
     : currentStep === 7
     ? pricingRef

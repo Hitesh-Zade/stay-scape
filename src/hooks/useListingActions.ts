@@ -53,16 +53,28 @@ export const useListingActions = () => {
                     },
                 });
                 break;
-            case 6:
+                  case 6:
+                    console.log(store.coverImage,)
                 await updateMutation.mutateAsync({
                     id: store.listingId,
                     data: {
+                        coverImage: store.coverImage,
+                        images: store.images,
+                    },
+                });
+                break;
+            case 7:
+                
+                await updateMutation.mutateAsync({
+                    id: store.listingId,
+                    data: {
+                        
                         title: store.title,
                         description: store.description,
                     },
                 });
                 break;
-            case 7:
+            case 8:
                 await updateMutation.mutateAsync({
                     id: store.listingId,
                     data: {
@@ -78,7 +90,7 @@ export const useListingActions = () => {
         await publishMutation.mutateAsync(store.listingId);
     };
 
-    const TOTAL_STEPS = 8;
+    const TOTAL_STEPS = 9;
 
     const handleStep = async () => {
         await saveCurrentStep();
@@ -98,6 +110,7 @@ export const useListingActions = () => {
 
   router.push("listings");
 };
+
 
     return { saveCurrentStep, publishListing, handleStep,saveAndExit };
 };

@@ -14,12 +14,13 @@ interface ListingCardProps {
       city: string;
       state: string;
     };
+    coverImage: string;
     images: string[];
   };
 }
 
 const ListingCard = ({ listing }: ListingCardProps) => {
-
+  console.log(listing.coverImage)
   return (
     <Link
       href={`/host/listings/${listing._id}`}
@@ -27,7 +28,7 @@ const ListingCard = ({ listing }: ListingCardProps) => {
     >
       <div className="relative h-66 w-full bg-gray-100">
         <Image
-          src={listing.images?.[0] || "/images/placeholder.jpg"}
+          src={listing.coverImage || "/images/placeholder.jpg"}
           alt={listing.title}
           fill
           className="object-cover transition duration-300"

@@ -1,5 +1,4 @@
 import { NextResponse } from "next/server";
-import { connectDB } from "@/lib/db";
 import Listing from "@/models/Listing";
 
 export async function PATCH(

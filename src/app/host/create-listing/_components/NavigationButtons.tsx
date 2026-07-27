@@ -11,7 +11,7 @@ export interface StepRef {
 }
 interface NavigationButtonsProps {
   totalSteps: number;
-   stepRef?: RefObject<StepRef | null>;
+  stepRef?: RefObject<StepRef | null>;
 }
 
 export default function NavigationButtons({
@@ -32,11 +32,11 @@ export default function NavigationButtons({
     }
   };
   const handleNext = async () => {
-      if (stepRef?.current) {
-    const isValid = stepRef.current.validate();
-
-    if (!isValid) return;
-  }
+    if (stepRef?.current) {
+      const isValid = stepRef.current.validate();
+      if (!isValid) return;
+    }
+    
 
     await handleStep();
 

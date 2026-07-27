@@ -10,7 +10,7 @@ import ListingCard from "./listingCard";
 export default function Listings() {
   const { data, isLoading } = useMyListings();
   const listings = data?.listings ?? [];
-
+  console.log(listings.coverImage)
   return (
     <>
       <HostNavbar />
