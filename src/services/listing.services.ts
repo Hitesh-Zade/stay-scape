@@ -54,3 +54,9 @@ export const getMyListings = async () => {
 
   return response.json();
 };
+
+export const getListing = async (id: string) => {
+  const response = await fetch(`/api/listings/${id}`);
+
+  return response.json();
+};

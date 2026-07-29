@@ -20,10 +20,8 @@ interface ListingCardProps {
 }
 
 const ListingCard = ({ listing }: ListingCardProps) => {
-  console.log(listing.coverImage)
   return (
-    <Link
-      href={`/host/listings/${listing._id}`}
+    <div
       className="group overflow-hidden rounded-xl border border-gray-200 bg-white transition hover:shadow-sm"
     >
       <div className="relative h-66 w-full bg-gray-100">
@@ -72,12 +70,12 @@ const ListingCard = ({ listing }: ListingCardProps) => {
             </span>
           </p>
 
-          <button className="rounded-lg bg-black px-4 py-2 text-sm font-medium text-white transition hover:bg-gray-800">
+          <Link href={`/host/create-listing?id=${listing._id}`} className="rounded-lg bg-black px-4 py-2 text-sm font-medium text-white transition hover:bg-gray-800">
             {listing.status === "draft" ? "Continue" : "Edit"}
-          </button>
+          </Link>
         </div>
       </div>
-    </Link>
+    </div>
   );
 };
 

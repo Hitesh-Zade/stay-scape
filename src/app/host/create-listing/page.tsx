@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { MapPin } from "lucide-react";
 import Link from "next/link";
 import PropertyTypeStep from "./_components/PropertyTypeStep";
@@ -18,13 +18,28 @@ import { Button } from "@/components/button/Button";
 import { useListingActions } from "@/hooks/useListingActions";
 import PhotosStep from "./_components/PhotosStep";
 import { StepRef } from "./_components/photos/PhotoGallery";
+import { useSearchParams } from "next/navigation";
+import { useEditListing } from "@/hooks/useEditListing";
 
 export default function CreateListings() {
+  const searchParams = useSearchParams();
+  const id = searchParams.get("id");
+  const { data } = useEditListing(id!);
+  const setListing = useListingStore((state) => state.setListing);
+  const resetListing = useListingStore((state) => state.resetListing);
+  console.log(data);
+  useEffect(() => {
+    if (data?.listing) {
+      setListing(data.listing);
+    } else {
+      resetListing();
+    }
+  }, [data, setListing, resetListing]);
+
   const addressRef = useRef<AddressStepRef>(null);
   const titleRef = useRef<TitleStepRef>(null);
-const pricingRef = useRef<PricingStepRef>(null);
-const photoGalleryRef = useRef<StepRef>(null);
-
+  const pricingRef = useRef<PricingStepRef>(null);
+  const photoGalleryRef = useRef<StepRef>(null);
 
   const { saveAndExit } = useListingActions();
   const currentStep = useListingStore((state) => state.currentStep);
@@ -40,8 +55,8 @@ const photoGalleryRef = useRef<StepRef>(null);
         return <BasicDetailsStep />;
       case 5:
         return <AmenitiesStep />;
-     case 6:
-        return <PhotosStep  ref={photoGalleryRef} />;
+      case 6:
+        return <PhotosStep ref={photoGalleryRef} />;
       case 7:
         return <TitleStep ref={titleRef} />;
       case 8:
@@ -51,17 +66,16 @@ const photoGalleryRef = useRef<StepRef>(null);
     }
   };
 
-
   const stepRef =
-  currentStep === 3
-    ? addressRef :
-      currentStep === 6
-    ? photoGalleryRef
-    : currentStep === 7
-    ? titleRef
-    : currentStep === 7
-    ? pricingRef
-    : null;
+    currentStep === 3
+      ? addressRef
+      : currentStep === 6
+        ? photoGalleryRef
+        : currentStep === 7
+          ? titleRef
+          : currentStep === 8
+            ? pricingRef
+            : null;
 
   return (
     <>

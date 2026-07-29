@@ -17,7 +17,19 @@ export interface BasicDetails {
   beds: number;
   bathrooms: number;
 }
-
+export interface Listing {
+  _id: string;
+  propertyType: string;
+  placeType: string;
+  address: Address;
+  basicDetails: BasicDetails;
+  title: string;
+  description: string;
+  price: number;
+  coverImage: string;
+  images: string[];
+  amenities: string[];
+}
 export interface ListingState {
   listingId: string;
   currentStep: number;
@@ -52,14 +64,17 @@ export interface ListingState {
   setTitle: (title: string) => void;
   setDescription: (description: string) => void;
   setPrice: (price: number) => void;
-   setcoverImage: (coverImage: string) => void;
+  setcoverImage: (coverImage: string) => void;
   setImages: (images: string[]) => void;
 
   addAmenity: (amenity: string) => void;
   removeAmenity: (amenity: string) => void;
 
   resetListing: () => void;
+setListing: (listing: Listing) => void;
 }
+
+
 
 export const useListingStore = create<ListingState>()(
   persist(
@@ -185,6 +200,20 @@ export const useListingStore = create<ListingState>()(
           coverImage: "",
           images: [],
           amenities: [],
+        }),
+      setListing: (listing) =>
+        set({
+          listingId: listing._id,
+          propertyType: listing.propertyType,
+          placeType: listing.placeType,
+          address: listing.address,
+          basicDetails: listing.basicDetails,
+          title: listing.title,
+          description: listing.description,
+          price: listing.price,
+          images: listing.images,
+          coverImage: listing.coverImage,
+          amenities: listing.amenities,
         }),
     }),
     {
