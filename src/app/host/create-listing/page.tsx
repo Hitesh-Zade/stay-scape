@@ -19,7 +19,8 @@ import { useListingActions } from "@/hooks/useListingActions";
 import PhotosStep from "./_components/PhotosStep";
 import { StepRef } from "./_components/photos/PhotoGallery";
 import { useSearchParams } from "next/navigation";
-import { useEditListing } from "@/hooks/useEditListing";
+import { useEditListingc } from "@/hooks/useEditListing";
+
 
 export default function CreateListings() {
   const searchParams = useSearchParams();
