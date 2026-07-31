@@ -3,6 +3,7 @@ import SearchBar from "@/components/ui/SearchBar";
 import CategoryFilter from "@/components/ui/CategoryFilters";
 import PropertyCard from "@/components/properties/PropertyCard";
 import Navbar from "@/components/layout/Navbar";
+
 // Mock data - In a real app, this would come from an API
 const mockProperties: Property[] = [
   {
