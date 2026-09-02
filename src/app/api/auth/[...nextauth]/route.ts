@@ -104,7 +104,9 @@ export const authOptions: NextAuthOptions = {
       if (user) {
         token.email = user.email;
         token.id = user.id;
-       // token.role = user.role;
+        token.role = user.role;
+
+        // token.role = user.role;
       }
       await connectDB();
 
@@ -120,11 +122,10 @@ export const authOptions: NextAuthOptions = {
 
     // ✅ SESSION
     async session({ session, token }) {
-      if (token) {
-        session.user.email = token.email;
-        session.user.id = token.id;
-        session.user.role = token.role;
-      }
+      session.user.email = token.email;
+      session.user.id = token.id;
+      session.user.role = token.role;
+
       return session;
     }
   },
