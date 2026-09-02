@@ -20,9 +20,7 @@ import PhotosStep from "./_components/PhotosStep";
 import { StepRef } from "./_components/photos/PhotoGallery";
 import { useSearchParams } from "next/navigation";
 
-
-import { useEditListingc } from "@/hooks/useEditListing";
-
+import { useEditListing } from "@/hooks/useEditListing";
 
 export default function CreateListings() {
   const searchParams = useSearchParams();
@@ -30,14 +28,16 @@ export default function CreateListings() {
   const { data } = useEditListing(id!);
   const setListing = useListingStore((state) => state.setListing);
   const resetListing = useListingStore((state) => state.resetListing);
-  console.log(data);
   useEffect(() => {
-    if (data?.listing) {
-      setListing(data.listing);
-    } else {
+    if (data) {
+      setListing(data);
+    }
+  }, [data, setListing]);
+  useEffect(() => {
+    if (!id) {
       resetListing();
     }
-  }, [data, setListing, resetListing]);
+  }, [id, resetListing]);
 
   const addressRef = useRef<AddressStepRef>(null);
   const titleRef = useRef<TitleStepRef>(null);

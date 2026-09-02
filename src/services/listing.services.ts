@@ -60,3 +60,15 @@ export const getListing = async (id: string) => {
 
   return response.json();
 };
+
+
+export const getPublishedListings = async (id: string) => {
+    
+  const response = await fetch(`/api/get-listings/`);
+
+   if (!response.ok) {
+    throw new Error("Failed to fetch listings");
+  }
+
+  return response.json();
+};

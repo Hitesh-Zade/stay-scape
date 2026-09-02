@@ -41,24 +41,6 @@ const Navbar = () => {
             </span>
           </Link>
 
-          {/* Center Search Bar */}
-          {/* Search Bar - Desktop */}
-          <div className="hidden lg:flex items-center bg-white border-2 border-gray-200 rounded-full px-6 py-3 shadow-sm hover:shadow-md transition-shadow duration-300 cursor-pointer group">
-            <div className="flex items-center space-x-6 divide-x divide-gray-200">
-              <div className="pr-6">
-                <p className="text-sm font-semibold text-gray-900">Anywhere</p>
-              </div>
-              <div className="px-6">
-                <p className="text-sm font-semibold text-gray-900">Any week</p>
-              </div>
-              <div className="pl-6 flex items-center space-x-3">
-                <p className="text-sm text-gray-600">Add guests</p>
-                <div className="bg-primary-500 p-2 rounded-full group-hover:scale-110 transition-transform duration-300">
-                  <Search className="w-4 h-4 text-white" />
-                </div>
-              </div>
-            </div>
-          </div>
           {/* Right Menu */}
           <div className="flex items-center space-x-4">
             {/* {session ? <span>{session.user?.name}</span> : ""} */}

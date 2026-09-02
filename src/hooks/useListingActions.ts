@@ -14,14 +14,25 @@ export const useListingActions = () => {
     const saveCurrentStep = async () => {
         switch (store.currentStep) {
             case 1:
-                const { listing } = await createMutation.mutateAsync();
-                store.setListingId(listing._id);
+                if (store.listingId) {
+                    await updateMutation.mutateAsync({
+                        id: store.listingId,
+                        data: {
+                            propertyType: store.propertyType,
+                            placeType: store.placeType,
+                        },
+                    });
+                } else {
+                    const { listing } = await createMutation.mutateAsync();
+
+                    store.setListingId(listing._id);
+                }
                 break;
             case 2:
                 await updateMutation.mutateAsync({
                     id: store.listingId,
                     data: {
-                         listingId: store.listingId,
+                        listingId: store.listingId,
                         propertyType: store.propertyType,
                         placeType: store.placeType,
                     },
@@ -29,7 +40,7 @@ export const useListingActions = () => {
                 break;
 
             case 3:
-                
+
                 await updateMutation.mutateAsync({
                     id: store.listingId,
                     data: {
@@ -53,8 +64,8 @@ export const useListingActions = () => {
                     },
                 });
                 break;
-                  case 6:
-                    console.log(store.coverImage,)
+            case 6:
+                console.log(store.coverImage,)
                 await updateMutation.mutateAsync({
                     id: store.listingId,
                     data: {
@@ -64,11 +75,11 @@ export const useListingActions = () => {
                 });
                 break;
             case 7:
-                
+
                 await updateMutation.mutateAsync({
                     id: store.listingId,
                     data: {
-                        
+
                         title: store.title,
                         description: store.description,
                     },
@@ -103,14 +114,14 @@ export const useListingActions = () => {
         }
     };
 
-     const saveAndExit = async () => {
-  await saveCurrentStep();
+    const saveAndExit = async () => {
+        await saveCurrentStep();
 
-  store.resetListing();
+        store.resetListing();
+      localStorage.removeItem("listing-store")
+        router.push("listings");
+    };
 
-  router.push("listings");
-};
 
-
-    return { saveCurrentStep, publishListing, handleStep,saveAndExit };
+    return { saveCurrentStep, publishListing, handleStep, saveAndExit };
 };

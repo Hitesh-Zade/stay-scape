@@ -6,16 +6,21 @@ import { useState } from 'react'
 const categories = [
   { id: 'all', name: 'All', icon: Home },
   { id: 'beachfront', name: 'Beachfront', icon: Waves },
-  { id: 'cabins', name: 'Cabins', icon: TreePine },
-  { id: 'mountain', name: 'Mountain', icon: Mountain },
-  { id: 'city', name: 'City', icon: Building2 },
-  { id: 'camping', name: 'Camping', icon: Tent },
-  { id: 'castle', name: 'Castles', icon: Castle },
-  { id: 'tropical', name: 'Tropical', icon: Palmtree },
+  { id: 'cabin', name: 'Cabin', icon: TreePine },
+  { id: 'Mountain', name: 'Mountain', icon: Mountain },
+  { id: 'Apartment', name: 'Apartment', icon: Building2 },
+  { id: 'Tent', name: 'Tent', icon: Tent },
+  { id: 'castle', name: 'Castle', icon: Castle },
+  { id: 'tropical', name: 'Tree House', icon: Palmtree },
 ]
+interface ListingCategoriesProps {
+  activeCategory: string;
+  setActiveCategory: (category: string) => void;
+}
 
-export default function CategoryFilter() {
-  const [activeCategory, setActiveCategory] = useState('all')
+
+export default function CategoryFilter({setActiveCategory, activeCategory}: ListingCategoriesProps) {
+ 
 
   return (
     <div className="flex items-center space-x-6 overflow-x-auto pb-2 scrollbar-hide">
@@ -32,7 +37,7 @@ export default function CategoryFilter() {
             <div
               className={`p-3 rounded-xl transition-all duration-300 ${
                 activeCategory === category.id
-                  ? 'bg-primary-500 text-white shadow-lg'
+                  ? 'bg-primary text-white shadow-lg'
                   : 'bg-gray-100 text-gray-600 group-hover:bg-gray-200'
               }`}
             >

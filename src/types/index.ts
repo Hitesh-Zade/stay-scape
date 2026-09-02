@@ -44,3 +44,20 @@ export type PropertyType =
   | 'entire-place' 
   | 'private-room' 
   | 'shared-room';
+
+
+export  interface ListingCardProps {
+    _id: string;
+    title: string;
+    propertyType: string;
+    placeType: string;
+    price: number;
+    status: "In Progress" | "Published";
+    address: {
+      city: string;
+      state: string;
+      country: string;
+    };
+    coverImage: string;
+    images: string[];
+}

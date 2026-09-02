@@ -6,11 +6,47 @@ import Link from "next/link";
 import { Button } from "@/components/button/Button";
 import { useMyListings } from "@/hooks/useMyListings";
 import ListingCard from "./listingCard";
+import { useWindowVirtualizer } from "@tanstack/react-virtual";
+import { useGridColumns } from "@/hooks/useGridColumns";
+import { useMemo } from "react";
+import ListingCardSkeleton from "@/components/ui/SkeletonLoader";
 
 export default function Listings() {
-  const { data, isLoading } = useMyListings();
-  const listings = data?.listings ?? [];
-  console.log(listings.coverImage)
+  const { data, isLoading, isError } = useMyListings();
+
+  const columns = useGridColumns({
+    base: 1,
+    sm: 2,
+    md: 3,
+    lg: 4,
+  });
+
+  const filteredListings = useMemo(() => {
+    const listings = data?.listings ?? [];
+    return listings;
+  }, [data?.listings]);
+
+  const rows = useMemo(() => {
+    const result = [];
+
+    for (let i = 0; i < filteredListings.length; i += columns) {
+      result.push(filteredListings.slice(i, i + columns));
+    }
+
+    return result;
+  }, [filteredListings, columns]);
+  const rowVirtualizer = useWindowVirtualizer({
+    count: rows.length,
+    estimateSize: () => 400,
+    measureElement: (element) => {
+      return element.getBoundingClientRect().height;
+    },
+    getItemKey: (index) => {
+      return rows[index].map((listing: any) => listing._id).join("-");
+    },
+    overscan: 2,
+  });
+
   return (
     <>
       <HostNavbar />
@@ -29,11 +65,53 @@ export default function Listings() {
           </div>
         </div>
         <div className="mt-3">
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-2">
-            {listings.map((listing) => (
-              <ListingCard key={listing._id} listing={listing} />
-            ))}
-          </div>
+          {isLoading ? (
+            <div
+              className="
+        grid
+        grid-cols-1
+        gap-x-6
+        gap-y-8
+        sm:grid-cols-2
+        md:grid-cols-3
+        lg:grid-cols-4
+      "
+            >
+              {Array.from({ length: 8 }).map((_, index) => (
+                <ListingCardSkeleton key={index} />
+              ))}
+            </div>
+          ) : isError ? (
+            <p className="text-gray-500">Unable to load listings.</p>
+          ) : filteredListings.length === 0 ? (
+            <p className="text-gray-500">No listings available.</p>
+          ) : (
+            <div
+              style={{
+                height: `${rowVirtualizer.getTotalSize()}px`,
+                position: "relative",
+              }}
+            >
+              {rowVirtualizer.getVirtualItems().map((virtualRow) => {
+                const row = rows[virtualRow.index];
+
+                return (
+                  <div
+                    key={virtualRow.key}
+                    ref={rowVirtualizer.measureElement}
+                    className="absolute left-0 top-0 grid w-full grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
+                    style={{
+                      transform: `translateY(${virtualRow.start}px)`,
+                    }}
+                  >
+                    {row.map((listing) => (
+                      <ListingCard key={listing._id} listing={listing} />
+                    ))}
+                  </div>
+                );
+              })}
+            </div>
+          )}
         </div>
       </div>
     </>

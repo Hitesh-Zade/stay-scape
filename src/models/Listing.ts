@@ -114,8 +114,8 @@ const ListingSchema = new mongoose.Schema(
     // Draft / Published
     status: {
       type: String,
-      enum: ["draft", "published"],
-      default: "draft",
+      enum: ["In Progress", "Published"],
+      default: "In Progress",
     },
   },
   {
