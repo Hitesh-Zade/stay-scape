@@ -104,7 +104,7 @@ export const authOptions: NextAuthOptions = {
       if (user) {
         token.email = user.email;
         token.id = user.id;
-        token.role = user.role;
+       // token.role = user.role;
       }
       await connectDB();
 
