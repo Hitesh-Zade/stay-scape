@@ -1,9 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
 import { getPublishedListings } from "@/services/listing.services";
 
-export const usePublishedListings = (city?: string) => {
+export const usePublishedListings = () => {
   return useQuery({
-    queryKey: ["published-listings", city],
-    queryFn: () => getPublishedListings(city),
+    queryKey: ["published-listings"],
+    queryFn: getPublishedListings,
   });
 };
