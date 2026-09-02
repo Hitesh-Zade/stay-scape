@@ -1,10 +1,7 @@
 import Image from "next/image";
 import {
-  MapPin,
-  IndianRupee,
   PencilIcon,
   ClockAlert,
-  DeleteIcon,
   Trash2Icon,
 } from "lucide-react";
 import Link from "next/link";
@@ -25,6 +22,7 @@ interface ListingCardProps {
     images: string[];
   };
 }
+
 
 const ListingCard = ({ listing }: ListingCardProps) => {
   return (

@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { Heart, Star } from "lucide-react";
+import { Heart } from "lucide-react";
 import { useState } from "react";
 
 interface PropertyCardProps {
@@ -10,14 +10,8 @@ interface PropertyCardProps {
     _id: string;
     title: string;
     price: number;
-    basicDetails: {
-      guests: number;
-      bedrooms: number;
-      bathrooms: number;
-      beds: number;
-    };
     coverImage: string;
-    images: [];
+    images:  string[];
     address: {
       city: string;
       state: string;
