@@ -13,7 +13,7 @@ interface Location {
 }
 interface PublishedListingsProps {
   activeCategory: string;
-  searchLocation: Location | null;
+  searchLocation: Location;
 }
 
 export default function PublishedListings({
@@ -75,7 +75,7 @@ export default function PublishedListings({
     },
 
     getItemKey: (index) => {
-      return rows[index].map((listing:ListingCardProps) => listing._id).join("-");
+      return rows[index].map((listing: any) => listing._id).join("-");
     },
 
     overscan: 2,
@@ -134,7 +134,7 @@ export default function PublishedListings({
               transform: `translateY(${virtualRow.start}px)`,
             }}
           >
-            {row.map((listing:ListingCardProps) => (
+            {row.map((listing) => (
               <PropertyListingCard key={listing._id} listing={listing} />
             ))}
           </div>

@@ -58,7 +58,6 @@ export  interface ListingCardProps {
       state: string;
       country: string;
     };
-    
     coverImage: string;
     images: string[];
 }

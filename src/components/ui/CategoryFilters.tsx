@@ -1,6 +1,7 @@
 'use client'
 
 import { Home, TreePine, Waves, Mountain, Building2, Tent, Castle, Palmtree } from 'lucide-react'
+import { useState } from 'react'
 
 const categories = [
   { id: 'all', name: 'All', icon: Home },

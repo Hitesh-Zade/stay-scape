@@ -10,7 +10,6 @@ import { useWindowVirtualizer } from "@tanstack/react-virtual";
 import { useGridColumns } from "@/hooks/useGridColumns";
 import { useMemo } from "react";
 import ListingCardSkeleton from "@/components/ui/SkeletonLoader";
-import { ListingCardProps } from "@/types";
 
 export default function Listings() {
   const { data, isLoading, isError } = useMyListings();
@@ -43,7 +42,7 @@ export default function Listings() {
       return element.getBoundingClientRect().height;
     },
     getItemKey: (index) => {
-      return rows[index].map((listing:ListingCardProps) => listing._id).join("-");
+      return rows[index].map((listing: any) => listing._id).join("-");
     },
     overscan: 2,
   });
@@ -105,7 +104,7 @@ export default function Listings() {
                       transform: `translateY(${virtualRow.start}px)`,
                     }}
                   >
-                    {row.map((listing:ListingCardProps) => (
+                    {row.map((listing) => (
                       <ListingCard key={listing._id} listing={listing} />
                     ))}
                   </div>
