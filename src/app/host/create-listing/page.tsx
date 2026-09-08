@@ -70,15 +70,15 @@ export default function CreateListings() {
   };
 
   const stepRef =
-  currentStep === 3
-    ? addressRef
-    : currentStep === 6
-      ? photoGalleryRef
-      : currentStep === 7
-        ? titleRef
-        : currentStep === 8
-          ? pricingRef
-          : undefined;
+    currentStep === 3
+      ? addressRef
+      : currentStep === 6
+        ? photoGalleryRef
+        : currentStep === 7
+          ? titleRef
+          : currentStep === 8
+            ? pricingRef
+            : null;
 
   return (
     <>
