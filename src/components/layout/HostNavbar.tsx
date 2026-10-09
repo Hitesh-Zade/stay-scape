@@ -86,7 +86,7 @@ const HostNavbar = () => {
                 session.user.image ? (
                   <Image
                     src={session.user.image}
-                    alt={session.user.name || "user"}
+                    alt={session.user.name || "guest"}
                     width={32}
                     height={32}
                     className="rounded-full object-cover"
