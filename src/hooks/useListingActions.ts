@@ -24,7 +24,7 @@ export const useListingActions = () => {
                     });
                 } else {
                     const { listing } = await createMutation.mutateAsync();
-
+                    console.log("CREATE LISTING RESPONSE:", listing);
                     store.setListingId(listing._id);
                 }
                 break;

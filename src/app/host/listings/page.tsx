@@ -10,6 +10,7 @@ import { useWindowVirtualizer } from "@tanstack/react-virtual";
 import { useGridColumns } from "@/hooks/useGridColumns";
 import { useMemo } from "react";
 import ListingCardSkeleton from "@/components/ui/SkeletonLoader";
+import { ListingCardProps } from "@/types";
 
 export default function Listings() {
   const { data, isLoading, isError } = useMyListings();
@@ -37,12 +38,11 @@ export default function Listings() {
   }, [filteredListings, columns]);
   const rowVirtualizer = useWindowVirtualizer({
     count: rows.length,
-    estimateSize: () => 400,
-    measureElement: (element) => {
-      return element.getBoundingClientRect().height;
-    },
+    estimateSize: () => 300,
     getItemKey: (index) => {
-      return rows[index].map((listing: any) => listing._id).join("-");
+      return rows[index]
+        .map((listing: ListingCardProps) => listing._id)
+        .join("-");
     },
     overscan: 2,
   });
@@ -98,13 +98,19 @@ export default function Listings() {
                 return (
                   <div
                     key={virtualRow.key}
-                    ref={rowVirtualizer.measureElement}
+                    ref={(element) => {
+                      if (element) {
+                        requestAnimationFrame(() => {
+                          rowVirtualizer.measureElement(element);
+                        });
+                      }
+                    }}
                     className="absolute left-0 top-0 grid w-full grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
                     style={{
                       transform: `translateY(${virtualRow.start}px)`,
                     }}
                   >
-                    {row.map((listing) => (
+                    {row.map((listing: ListingCardProps) => (
                       <ListingCard key={listing._id} listing={listing} />
                     ))}
                   </div>

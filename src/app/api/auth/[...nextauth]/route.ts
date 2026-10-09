@@ -67,7 +67,6 @@ export const authOptions: NextAuthOptions = {
         await connectDB();
 
         const existingUser = await User.findOne({ email: user.email });
-        console.log(existingUser, "existingUser");
         if (!existingUser) {
           // 👉 Create new Google user
           await User.create({
@@ -121,8 +120,7 @@ export const authOptions: NextAuthOptions = {
     // ✅ SESSION
     async session({ session, token }) {
       if (token) {
-        session.user.email = token.email;
-        session.user.id = token.id;
+        session.user.id = token.id as string;
         session.user.role = token.role;
       }
       return session;

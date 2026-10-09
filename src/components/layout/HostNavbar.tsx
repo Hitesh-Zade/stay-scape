@@ -9,7 +9,7 @@ import Image from "next/image";
 
 const HostNavbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { data: session, } = useSession();
+  const { data: session } = useSession();
   const router = useRouter();
   const handleBecomeHost = async () => {
     const res = await fetch("/api/become-host", {
@@ -40,13 +40,15 @@ const HostNavbar = () => {
             </span>
           </Link>
 
-        
           {/* Right Menu */}
           <div className="flex items-center space-x-4 my-[10]">
             {/* {session ? <span>{session.user?.name}</span> : ""} */}
 
             {session?.user?.role === "host" && (
-              <button onClick={() => router.push("/")} className="text-sm font-semibold text-gray-900 hover:text-primary-500 transition-colors duration-300 px-4 py-2 rounded-full hover:bg-gray-50 ">
+              <button
+                onClick={() => router.push("/")}
+                className="hidden md:block text-sm font-semibold text-gray-900 hover:text-primary-500 transition-colors duration-300 px-4 py-2 rounded-full hover:bg-gray-50 "
+              >
                 Switch to Travelling
               </button>
             )}
@@ -71,7 +73,7 @@ const HostNavbar = () => {
               </button>
             )}
 
-            <button className="p-2 rounded-full hover:bg-gray-100 transition-colors duration-300">
+            <button className="p-2 hidden md:block rounded-full hover:bg-gray-100 transition-colors duration-300">
               <Heart className="w-5 h-5 text-gray-600" />
             </button>
 
@@ -133,6 +135,41 @@ const HostNavbar = () => {
               </div>
             )}
 
+             {/* Not logged in */}
+            {!session && (
+              <Link
+                href="/login"
+                className="md:hidden text-sm font-semibold text-gray-900 hover:text-primary-500 transition-colors duration-300 px-4 py-2 rounded-full hover:bg-gray-50"
+              >
+                Become a host
+              </Link>
+            )}
+
+            {/* Logged in but NOT host */}
+            {session && session.user?.role !== "host" && (
+              <button
+                onClick={handleBecomeHost}
+                className="md:hidden text-sm font-semibold text-gray-900 hover:text-primary-500 transition-colors duration-300 px-4 py-2 rounded-full hover:bg-gray-50 my-1"
+              >
+                Become a host
+              </button>
+            )}
+
+            {session?.user?.role === "host" && (
+              <button
+                onClick={() => router.push("/")}
+                className="md:hidden text-sm  text-gray-700 hover:text-primary-500 transition-colors duration-300 px-4 py-2 rounded-full hover:bg-gray-50 "
+              >
+                Switch to Travelling
+              </button>
+            )}
+
+            <Link
+              href="/"
+              className="md:hidden block px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 transition-colors duration-200"
+            >
+              My Wishlist
+            </Link>
             <Link
               href="/bookings"
               className="block px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 transition-colors duration-200"

@@ -1,11 +1,9 @@
 "use client";
-import { Property } from "@/types";
 import SearchBar from "@/components/ui/SearchBar";
 import CategoryFilter from "@/components/ui/CategoryFilters";
 import Navbar from "@/components/layout/Navbar";
 import PublishedListings from "@/components/listings/PublishedListings";
 import { useState } from "react";
-import VirtualListingList from "@/components/listings/VirtualListingList";
 interface Location {
   city: string;
   country: string;

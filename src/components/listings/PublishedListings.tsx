@@ -7,17 +7,19 @@ import { useWindowVirtualizer } from "@tanstack/react-virtual";
 import { useGridColumns } from "@/hooks/useGridColumns";
 import ListingCardSkeleton from "../ui/SkeletonLoader";
 import { ListingCardProps } from "@/types";
+
 interface Location {
   city: string;
   country: string;
 }
 interface PublishedListingsProps {
   activeCategory: string;
-  searchLocation: Location;
+  searchLocation: Location | null;
 }
 
 export default function PublishedListings({
-  activeCategory,searchLocation
+  activeCategory,
+  searchLocation,
 }: PublishedListingsProps) {
   const { data, isLoading, isError } = usePublishedListings();
 
@@ -29,32 +31,26 @@ export default function PublishedListings({
   });
 
   const filteredListings = useMemo(() => {
-  const listings = data?.listings ?? [];
+    const listings = data?.listings ?? [];
+    console.log(listings)
 
-  return listings.filter((listing: ListingCardProps) => {
-    // Category filter
-    const matchesCategory =
-      activeCategory === "all" ||
-      listing.propertyType?.toLowerCase() ===
-        activeCategory.toLowerCase();
+    return listings.filter((listing: ListingCardProps) => {
+      // Category filter
+      const matchesCategory =
+        activeCategory === "all" ||
+        listing.propertyType?.toLowerCase() === activeCategory.toLowerCase();
 
-    // Location filter
-    const matchesLocation =
-      !searchLocation ||
-      (
-        listing.address?.city?.toLowerCase() ===
+      // Location filter
+      const matchesLocation =
+        !searchLocation ||
+        (listing.address?.city?.toLowerCase() ===
           searchLocation.city.toLowerCase() &&
-        listing.address?.country?.toLowerCase() ===
-          searchLocation.country.toLowerCase()
-      );
+          listing.address?.country?.toLowerCase() ===
+            searchLocation.country.toLowerCase());
 
-    return matchesCategory && matchesLocation;
-  });
-}, [
-  data?.listings,
-  activeCategory,
-  searchLocation,
-]);
+      return matchesCategory && matchesLocation;
+    });
+  }, [data?.listings, activeCategory, searchLocation]);
 
   const rows = useMemo(() => {
     const result = [];
@@ -68,14 +64,10 @@ export default function PublishedListings({
 
   const rowVirtualizer = useWindowVirtualizer({
     count: rows.length,
-    estimateSize: () => 400,
-
-    measureElement: (element) => {
-      return element.getBoundingClientRect().height;
-    },
+    estimateSize: () => 300,
 
     getItemKey: (index) => {
-      return rows[index].map((listing: any) => listing._id).join("-");
+      return rows[index].map((listing: ListingCardProps) => listing._id).join("-");
     },
 
     overscan: 2,
@@ -98,10 +90,10 @@ export default function PublishedListings({
         gap-y-8
         sm:grid-cols-2
         md:grid-cols-3
-        lg:grid-cols-4
+        lg:grid-cols-5
       "
       >
-        {Array.from({ length: 8 }).map((_, index) => (
+        {Array.from({ length: 10 }).map((_, index) => (
           <ListingCardSkeleton key={index} />
         ))}
       </div>
@@ -128,13 +120,20 @@ export default function PublishedListings({
         return (
           <div
             key={virtualRow.key}
-            ref={rowVirtualizer.measureElement}
+            ref={(element) => {
+              if (element) {
+                requestAnimationFrame(() => {
+                  rowVirtualizer.measureElement(element);
+                });
+              }
+            }}
+            data-index={virtualRow.index}
             className="absolute left-0 top-0 grid w-full grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5"
             style={{
               transform: `translateY(${virtualRow.start}px)`,
             }}
           >
-            {row.map((listing) => (
+            {row.map((listing:ListingCardProps) => (
               <PropertyListingCard key={listing._id} listing={listing} />
             ))}
           </div>

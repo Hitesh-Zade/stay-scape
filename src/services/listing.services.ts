@@ -1,3 +1,5 @@
+import { Listing } from "./types";
+
 export const ListingService = {
 
     async createDraft() {
@@ -9,7 +11,7 @@ export const ListingService = {
         return res.json();
     },
 
-    async updateDraft(id: string, data: any) {
+    async updateDraft(id: string, data: Listing) {
 
         const res = await fetch(`/api/listings/${id}`, {
 

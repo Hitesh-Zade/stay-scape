@@ -2,6 +2,7 @@
 export interface User {
   id: string;
   email: string;
+  role: string;
   name: string;
   avatar?: string;
   createdAt: Date;
@@ -40,24 +41,30 @@ export interface Location {
 }
 
 
-export type PropertyType = 
-  | 'entire-place' 
-  | 'private-room' 
+export type PropertyType =
+  | 'entire-place'
+  | 'private-room'
   | 'shared-room';
 
 
-export  interface ListingCardProps {
-    _id: string;
-    title: string;
-    propertyType: string;
-    placeType: string;
-    price: number;
-    status: "In Progress" | "Published";
-    address: {
-      city: string;
-      state: string;
-      country: string;
-    };
-    coverImage: string;
-    images: string[];
+export interface ListingCardProps {
+  _id: string;
+  title: string;
+  propertyType: string;
+  placeType: string;
+  price: number;
+  status: "In Progress" | "Published";
+  address: {
+    city: string;
+    state: string;
+    country: string;
+  };
+  basicDetails: {
+    guests: number;
+    bedrooms: number;
+    beds: number;
+    bathrooms: number;
+  };
+  coverImage: string;
+  images: string[];
 }

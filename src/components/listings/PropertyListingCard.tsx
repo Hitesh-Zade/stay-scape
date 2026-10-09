@@ -17,7 +17,7 @@ interface PropertyCardProps {
       beds: number;
     };
     coverImage: string;
-    images: [];
+    images: string[];
     address: {
       city: string;
       state: string;
@@ -105,7 +105,7 @@ export default function PropertyCard({ listing }: PropertyCardProps) {
             {listing.basicDetails.beds > 1 ? "s" : ""}
           </p> */}
 
-          <div className="pt-1">
+          <div className="pt-1 mb-5">
             <p className="text-gray-900">
               <span className="font-bold">₹{listing.price}</span>
               <span className="text-sm font-normal text-gray-600">

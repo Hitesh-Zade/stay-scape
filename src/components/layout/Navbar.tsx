@@ -26,7 +26,6 @@ const Navbar = () => {
       toast.error(data.error || "Something went wrong");
     }
   };
-  console.log(session?.user);
   return (
     <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-lg border-b border-gray-200">
       <nav className="container-custom py-4">
@@ -46,7 +45,10 @@ const Navbar = () => {
             {/* {session ? <span>{session.user?.name}</span> : ""} */}
 
             {session?.user?.role === "host" && (
-              <button onClick={() => router.push("/host/listings")} className="text-sm font-semibold text-gray-900 hover:text-primary-500 transition-colors duration-300 px-4 py-2 rounded-full hover:bg-gray-50">
+              <button
+                onClick={() => router.push("/host/listings")}
+                className=" hidden md:block text-sm font-semibold text-gray-900 hover:text-primary-500 transition-colors duration-300 px-4 py-2 rounded-full hover:bg-gray-50"
+              >
                 Switch to Hosting
               </button>
             )}
@@ -71,7 +73,7 @@ const Navbar = () => {
               </button>
             )}
 
-            <button className="p-2 rounded-full hover:bg-gray-100 transition-colors duration-300">
+            <button className="hidden md:block p-2 rounded-full hover:bg-gray-100 transition-colors duration-300">
               <Heart className="w-5 h-5 text-gray-600" />
             </button>
 
@@ -132,7 +134,40 @@ const Navbar = () => {
                 <div className="border-t border-gray-200 my-2"></div>
               </div>
             )}
+            {session?.user?.role === "host" && (
+              <button
+                onClick={() => router.push("/host/listings")}
+                className="text-sm  text-gray-700 hover:text-primary-500 transition-colors duration-300 px-4 py-2 rounded-full hover:bg-gray-50"
+              >
+                Switch to Hosting
+              </button>
+            )}
 
+            {/* Not logged in */}
+            {!session && (
+              <Link
+                href="/login"
+                className="md:hidden text-sm  text-gray-700 hover:text-primary-500 transition-colors duration-300 px-4 py-2 rounded-full hover:bg-gray-50"
+              >
+                Become a host
+              </Link>
+            )}
+
+            {/* Logged in but NOT host */}
+            {session && session.user?.role !== "host" && (
+              <button
+                onClick={handleBecomeHost}
+                className="md:hidden text-sm  text-gray-700 hover:text-primary-500 transition-colors duration-300 px-4 py-2 rounded-full hover:bg-gray-50"
+              >
+                Become a host
+              </button>
+            )}
+            <Link
+              href="/"
+              className="md:hidden block px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 transition-colors duration-200"
+            >
+              My Wishlist
+            </Link>
             <Link
               href="/bookings"
               className="block px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 transition-colors duration-200"
