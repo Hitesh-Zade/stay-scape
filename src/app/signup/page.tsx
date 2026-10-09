@@ -15,16 +15,22 @@ export default function LoginPage() {
   const [name, setName] = useState<string>("");
   const [successBanner, setSuccessBanner] = useState<string>("");
   const [isloading, setIsLoading] = useState<boolean>(false);
-  const { email, error, handleChange, isValidEmail, reset:resetEmail } = useEmailValidation();
+  const {
+    email,
+    error,
+    handleChange,
+    isValidEmail,
+    reset: resetEmail,
+  } = useEmailValidation();
   const {
     password,
     error: passwordError,
     handleChange: handlePasswordChange,
     validate: validatePassword,
-    reset:restPassword
+    reset: restPassword,
   } = usePasswordValidation();
 
-const isDisabled = isValidEmail(email) && password.length >= 3;
+  const isDisabled = isValidEmail(email) && password.length >= 3;
   const router = useRouter();
 
   const handleSignup = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -42,19 +48,24 @@ const isDisabled = isValidEmail(email) && password.length >= 3;
         body: JSON.stringify({ name, email, password }),
       });
 
-      // const data = await res.json();
+      const result = await res.json();
 
       if (res.ok) {
-        setSuccessBanner("Account created successfully. You can now log in.")
-       
+        setSuccessBanner(
+          result.message || "Account created successfully! You can now log in.",
+        );
+        toast.success("Account created successfully! You can now log in.");
       } else {
-        toast.error("Something went wrong");
+        const message =
+          result.message ||
+          result.error ||
+          "Unable to create your account. Please try again.";
 
+        toast.error(message);
       }
       setName("");
       resetEmail();
       restPassword();
-
     } finally {
       setIsLoading(false);
     }
@@ -72,9 +83,13 @@ const isDisabled = isValidEmail(email) && password.length >= 3;
                 Signup
               </h1>
             </div>
-               {successBanner && (
-                            <Alert variant="success" message={successBanner}   onClose={() => setSuccessBanner("")} />
-                        )}
+            {successBanner && (
+              <Alert
+                variant="success"
+                message={successBanner}
+                onClose={() => setSuccessBanner("")}
+              />
+            )}
             {/* Login Form */}
             <form onSubmit={handleSignup} className="space-y-4">
               <div>

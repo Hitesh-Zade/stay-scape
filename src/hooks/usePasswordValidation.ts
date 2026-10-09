@@ -10,8 +10,8 @@ export function usePasswordValidation() {
       return false;
     }
 
-    if (value.length < 3) {
-      setError("Password must be at least 3 characters");
+    if (value.length < 8) {
+      setError("Password must be at least 8 characters");
       return false;
     }
 
