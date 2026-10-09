@@ -63,12 +63,21 @@ export const getListing = async (id: string) => {
   return response.json();
 };
 
+export const getPublishedListings = async (city?: string) => {
+  const params = new URLSearchParams();
 
-export const getPublishedListings = async (id: string) => {
-    
-  const response = await fetch(`/api/get-listings/`);
+  if (city) {
+    params.set("city", city);
+  }
 
-   if (!response.ok) {
+  const query = params.toString();
+  const url = query
+    ? `/api/get-listings/?${query}`
+    : `/api/get-listings/`;
+
+  const response = await fetch(url);
+
+  if (!response.ok) {
     throw new Error("Failed to fetch listings");
   }
 

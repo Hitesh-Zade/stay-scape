@@ -3,8 +3,7 @@ import { getPublishedListings } from "@/services/listing.services";
 
 export const usePublishedListings = (city?: string) => {
   return useQuery({
-    queryKey: ["published-listings", city],
-    queryFn: () => getPublishedListings(city!),
-    enabled: !!city,
+    queryKey: ["published-listings", city ?? "all"],
+    queryFn: () => getPublishedListings(city),
   });
 };
